@@ -1,0 +1,112 @@
+.game-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.player-info, .game-status {
+    background-color: #333;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    flex: 1;
+    min-width: 250px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.player-info {
+    margin-right: 15px;
+}
+
+.game-board {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.map-grid {
+    background-color: #222;
+    border: 2px solid #444;
+    display: inline-block;
+}
+
+.map-row {
+    display: flex;
+}
+
+.map-cell {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 1px solid #333;
+    font-size: 12px;
+}
+
+.map-cell.empty {
+    background-color: #222;
+    color: #555;
+}
+
+.map-cell.wall {
+    background-color: var(--wall-color);
+    color: #fff;
+}
+
+.map-cell.survivor {
+    background-color: var(--survivor-color);
+    color: #fff;
+}
+
+.map-cell.infected {
+    background-color: var(--infected-color);
+    color: #fff;
+}
+
+.map-cell.powerup {
+    background-color: var(--powerup-color);
+    color: #000;
+}
+
+.map-cell.current-player {
+    border: 2px solid #fff;
+    box-sizing: border-box;
+}
+
+.game-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.controls-info {
+    background-color: #333;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    flex: 1;
+    margin-right: 15px;
+}
+
+.controls-info h3 {
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+.controls-info p {
+    margin-bottom: 5px;
+}

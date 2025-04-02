@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virus Arena - Juego</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/game.css">
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
+  <script src="/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
+</head>
+<body>
+<div class="game-container">
+  <div class="game-header">
+    <div class="player-info">
+      <h2 id="playerName"></h2>
+      <p>Tipo: <span id="playerType"></span></p>
+      <p>Power-ups: <span id="powerUpCount">0</span></p>
+    </div>
+
+    <div class="game-status">
+      <h2>Estado del juego</h2>
+      <p id="gameState">En progreso</p>
+      <p>Jugadores: <span id="playerCount">0</span>/8</p>
+    </div>
+  </div>
+
+  <div class="game-board">
+    <div id="map" class="map-grid"></div>
+  </div>
+
+  <div class="game-controls">
+    <div class="controls-info">
+      <h3>Controles</h3>
+      <p>Movimiento: WASD</p>
+      <p>Recoger power-up: E</p>
+      <p>Usar power-up: Q</p>
+    </div>
+    <button id="quitBtn" class="btn btn-danger">Abandonar partida</button>
+  </div>
+</div>
+
+<script src="js/socket.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

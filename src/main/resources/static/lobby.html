@@ -1,0 +1,27 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virus Arena - Lobby</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/lobby.css">
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
+  <script src="/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Lobby de Virus Arena</h1>
+  </header>
+  <main>
+    <div id="playersList"></div>
+    <button id="startBtn">Iniciar partida</button>
+  </main>
+  <footer>
+    <p>Esperando jugadores...</p>
+  </footer>
+</div>
+<script src="js/socket.js"></script>
+<script src="js/lobby.js"></script>
+</body>
+</html>
