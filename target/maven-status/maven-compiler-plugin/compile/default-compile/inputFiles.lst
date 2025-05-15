@@ -1,16 +1,16 @@
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\model\player\Player.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\model\dto\GameDTOs.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\VirusArenaApplication.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\controller\GameController.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\controller\WebSocketController.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\model\player\Infected.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\model\powerup\StaminaPowerUp.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\config\WebConfig.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\config\WebSocketConfig.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\service\GameService.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\model\map\Map.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\repository\GameRepository.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\model\player\Survivor.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\model\Game.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\service\GameNotificationService.java
-C:\Users\manue\OneDrive\Desktop\Noveno Semestre\ARSW\Proyecto\VirusArena-ARSW-2025-1-FULL\src\main\java\edu\eci\arsw\model\powerup\PowerUp.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\controller\GameController.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\config\WebConfig.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\model\player\Survivor.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\model\map\Map.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\service\GameService.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\model\Game.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\model\player\Player.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\controller\WebSocketController.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\model\powerup\PowerUp.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\repository\GameRepository.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\config\WebSocketConfig.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\service\GameNotificationService.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\VirusArenaApplication.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\model\player\Infected.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\model\dto\GameDTOs.java
+C:\Users\yelka\IdeaProjects\VirusArena-ARSW-2025-1-Backend\src\main\java\edu\eci\arsw\model\powerup\StaminaPowerUp.java

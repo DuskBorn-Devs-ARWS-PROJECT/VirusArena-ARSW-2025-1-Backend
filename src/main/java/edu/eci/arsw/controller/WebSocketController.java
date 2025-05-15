@@ -34,4 +34,3 @@ public class WebSocketController extends TextWebSocketHandler {
         sessions.remove(session);
     }
 }
-

@@ -13,7 +13,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOriginPatterns("http://localhost:8080", "http://localhost:3000")
+                .setAllowedOriginPatterns("http://localhost:8080", "http://localhost:3000", "http://virusarena-frontend.s3-website-us-east-1.amazonaws.com")
                 .withSockJS();
     }
 
