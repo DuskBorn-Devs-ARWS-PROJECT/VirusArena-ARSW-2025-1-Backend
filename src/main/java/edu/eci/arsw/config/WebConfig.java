@@ -10,13 +10,13 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://virusarena-frontend.s3-website-us-east-1.amazonaws.com") // Solo tu S3
+                .allowedOrigins("http://virusarenafront.s3-website.us-east-2.amazonaws.com") // Solo tu S3
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
 
         registry.addMapping("/ws/**")
-                .allowedOrigins("http://virusarena-frontend.s3-website-us-east-1.amazonaws.com") // Solo tu S3
+                .allowedOrigins("http://virusarenafront.s3-website.us-east-2.amazonaws.com") // Solo tu S3
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowCredentials(true);
