@@ -11,6 +11,7 @@ edu\eci\arsw\model\dto\GameDTOs$GameStateDTO.class
 edu\eci\arsw\model\map\Map.class
 edu\eci\arsw\model\player\Player.class
 edu\eci\arsw\model\powerup\StaminaPowerUp.class
+edu\eci\arsw\config\WebConfig$1.class
 edu\eci\arsw\model\dto\GameDTOs$GameInfo.class
 edu\eci\arsw\model\dto\GameDTOs$PowerUpCollectRequest.class
 edu\eci\arsw\model\dto\GameDTOs$PlayerJoinRequest.class
