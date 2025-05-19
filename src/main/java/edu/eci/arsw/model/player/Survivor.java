@@ -2,10 +2,11 @@ package edu.eci.arsw.model.player;
 
 import edu.eci.arsw.model.Game;
 import lombok.Getter;
+import lombok.Setter;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-@Getter
+@Getter @Setter
 public class Survivor extends Player {
     private final Lock collectionLock = new ReentrantLock();
     private boolean staminaActive;
@@ -95,6 +96,15 @@ public class Survivor extends Player {
         try {
             this.staminaActive = false;
             setSpeed(originalSpeed);
+        } finally {
+            collectionLock.unlock();
+        }
+    }
+
+    public int getPowerUpCount() {
+        collectionLock.lock();
+        try {
+            return powerUpCount;
         } finally {
             collectionLock.unlock();
         }

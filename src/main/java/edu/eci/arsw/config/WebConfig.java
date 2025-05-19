@@ -13,8 +13,12 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")  // aplica a todas las rutas
-                        .allowedOrigins("http://virusarenafront.s3-website.us-east-2.amazonaws.com")  // tu frontend
+                registry.addMapping("/**")
+                        .allowedOrigins(
+                                "http://virusarenafront.s3-website.us-east-2.amazonaws.com",
+                                "https://d8c1uwm8l6tk4.cloudfront.net",
+                                "https://virusarenaarsw.sytes.net"
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowCredentials(true);
             }
