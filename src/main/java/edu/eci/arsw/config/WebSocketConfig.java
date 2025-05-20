@@ -16,7 +16,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setAllowedOrigins(
                         "http://virusarenafront.s3-website.us-east-2.amazonaws.com",
                         "https://d8c1uwm8l6tk4.cloudfront.net",
-                        "https://virusarenaarsw.sytes.net"
+                        "https://virusarenaarsw.sytes.net",
+                        "backend-app-lb-954081308.us-east-2.elb.amazonaws.com",
+                        "http://backend-app-lb-954081308.us-east-2.elb.amazonaws.com"
                 )
                 .withSockJS();
     }
