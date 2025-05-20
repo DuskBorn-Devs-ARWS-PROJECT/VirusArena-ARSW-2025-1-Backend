@@ -10,6 +10,7 @@ import edu.eci.arsw.model.Game;
 import edu.eci.arsw.model.player.*;
 import edu.eci.arsw.model.dto.GameDTOs.*;
 import edu.eci.arsw.repository.GameRepository;
+import edu.eci.arsw.repository.UserRepository;
 import edu.eci.arsw.service.GameNotificationService;
 
 import java.util.*;
@@ -17,18 +18,20 @@ import java.util.stream.Collectors;
 
 @Controller
 public class GameController {
-
     private final GameRepository gameRepository;
     private final GameNotificationService notificationService;
     private final SimpMessagingTemplate messagingTemplate;
+    private final UserRepository userRepository;
     private final Random random = new Random();
 
     public GameController(GameRepository gameRepository,
                           GameNotificationService notificationService,
-                          SimpMessagingTemplate messagingTemplate) {
+                          SimpMessagingTemplate messagingTemplate,
+                          UserRepository userRepository) {
         this.gameRepository = gameRepository;
         this.notificationService = notificationService;
         this.messagingTemplate = messagingTemplate;
+        this.userRepository = userRepository;
     }
 
     @MessageMapping("/lobby/{gameCode}/join")
@@ -51,6 +54,13 @@ public class GameController {
 
         if (game.getPlayers().isEmpty()) {
             game.setHostPlayerId(joinRequest.getPlayerId());
+            // Actualizar rol del usuario a ROLE_HOST
+            userRepository.findByUsername(joinRequest.getPlayerName())
+                    .ifPresent(user -> {
+                        user.setRole("ROLE_HOST");
+                        userRepository.save(user);
+                        System.out.println("Usuario " + user.getUsername() + " actualizado a ROLE_HOST");
+                    });
         }
 
         Player player = createPlayerWithDistribution(

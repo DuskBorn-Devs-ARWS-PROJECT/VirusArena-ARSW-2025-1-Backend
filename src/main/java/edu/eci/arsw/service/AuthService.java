@@ -40,6 +40,8 @@ public class AuthService {
         user.setUsername(registerRequest.getUsername());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setEmail(registerRequest.getEmail());
+
+        // Asignar ROLE_USER por defecto, el frontend actualizará a ROLE_HOST si es host
         user.setRole("ROLE_USER");
 
         userRepository.save(user);

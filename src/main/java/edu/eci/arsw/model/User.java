@@ -23,6 +23,6 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String role;
 }
