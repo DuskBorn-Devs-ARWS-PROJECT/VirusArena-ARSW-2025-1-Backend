@@ -26,6 +26,9 @@
         <lombok.version>1.18.30</lombok.version>
         <jjwt.version>0.11.5</jjwt.version>
         <mariadb.version>3.1.4</mariadb.version>
+        <sonar.organization>yeltzyn</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.projectKey>YeltzynS_VirusArena-ARSW-2025-1-Backend</sonar.projectKey>
     </properties>
 
     <dependencies>
