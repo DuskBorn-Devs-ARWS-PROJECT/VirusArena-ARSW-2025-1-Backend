@@ -78,10 +78,10 @@ public class AuthController {
     public ResponseEntity<?> updateUserRole(@RequestBody Map<String, String> request) {
         try {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            Optional<edu.eci.arsw.model.User> userOpt = userRepository.findByUsername(username); // Cambiar el tipo
+            Optional<edu.eci.arsw.model.User> userOpt = userRepository.findByUsername(username);
 
             if (userOpt.isPresent()) {
-                edu.eci.arsw.model.User user = userOpt.get(); // Usar el tipo completo
+                edu.eci.arsw.model.User user = userOpt.get();
                 user.setRole(request.get("role"));
                 userRepository.save(user);
                 return ResponseEntity.ok().build();

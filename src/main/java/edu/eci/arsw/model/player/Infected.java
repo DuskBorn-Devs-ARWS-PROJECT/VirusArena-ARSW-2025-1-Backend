@@ -5,7 +5,7 @@ import edu.eci.arsw.model.Game;
 public class Infected extends Player {
     // Constructor actualizado
     public Infected(String id, int x, int y, String name) {
-        super(id, x, y, 1, name); // Velocidad 2 para infectados
+        super(id, x, y, 1, name);
     }
 
     @Override
@@ -79,9 +79,8 @@ public class Infected extends Player {
         if (dx <= 1 && dy <= 1) {
             System.out.println(getName() + " ha infectado a " + survivor.getName());
             game.removePlayer(survivor.getId());
-            // Convertir el survivor en infected manteniendo su ID
             game.addPlayer(new Infected(
-                    survivor.getId(),  // Mantener el mismo ID
+                    survivor.getId(),
                     survivor.getX(),
                     survivor.getY(),
                     survivor.getName()

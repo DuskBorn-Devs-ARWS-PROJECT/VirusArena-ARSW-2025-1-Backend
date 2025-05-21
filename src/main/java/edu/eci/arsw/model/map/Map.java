@@ -20,7 +20,6 @@ public class Map {
     }
 
     private void initializeMap() {
-        // Generate outer walls
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
@@ -31,7 +30,6 @@ public class Map {
             }
         }
 
-        // Define inner walls
         int[][] innerWalls = {
                 {0,0}, {0,1}, {0,2}, {0,3}, {0,4}, {0,5}, {0,6}, {0,7}, {0,8}, {0,9}, {0,10}, {0,11}, {0,12}, {0,13}, {0,14}, {0,15}, {0,16}, {0,17}, {0,18}, {0,19}, {0,20}, {0,21}, {0,22}, {0,23}, {0,24}, {0,25}, {0,26}, {0,27}, {0,28}, {0,29}, {0,30}, {0,31}, {0,32},
                 {1,0}, {1,5}, {1,32},
@@ -74,7 +72,6 @@ public class Map {
             }
         }
 
-        // Keep the exit clear
         if (32 < height && 12 < width) {
             grid[32][12] = '.';
         }
@@ -83,7 +80,7 @@ public class Map {
     public boolean isWalkable(int x, int y) {
         lock.lock();
         try {
-            System.out.println("Verificando posición X:" + x + " Y:" + y + " - Valor: " + grid[y][x]); // Debug 7
+            System.out.println("Verificando posición X:" + x + " Y:" + y + " - Valor: " + grid[y][x]);
             return x >= 0 && x < width && y >= 0 && y < height && grid[y][x] == '.';
         } finally {
             lock.unlock();
@@ -108,7 +105,7 @@ public class Map {
             if (x >= 0 && x < width && y >= 0 && y < height) {
                 return grid[y][x];
             }
-            return '#'; // If outside map, consider as wall
+            return '#';
         } finally {
             lock.unlock();
         }

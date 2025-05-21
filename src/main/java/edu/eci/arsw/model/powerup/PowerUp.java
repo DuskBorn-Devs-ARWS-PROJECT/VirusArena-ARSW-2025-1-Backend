@@ -30,7 +30,6 @@ public abstract class PowerUp {
     }
 
     public boolean acquire(Survivor survivor) {
-        // Solo un hilo puede adquirir el power-up a la vez
         if (!beingCollected.compareAndSet(false, true)) {
             return false;
         }

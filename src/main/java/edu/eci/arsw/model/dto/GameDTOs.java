@@ -5,14 +5,8 @@ import edu.eci.arsw.model.player.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Clase que contiene todos los DTOs (Data Transfer Objects) del juego VirusArena
- */
 public class GameDTOs {
 
-    /**
-     * Solicitud de uniÃƒÂ³n a un juego
-     */
     public static class PlayerJoinRequest {
         private String playerId;
         private String gameCode;
@@ -38,9 +32,6 @@ public class GameDTOs {
         }
     }
 
-    /**
-     * Solicitud de acción de jugador
-     */
     public static class PlayerActionRequest {
         private String playerId;
         private PlayerAction action;
@@ -62,9 +53,6 @@ public class GameDTOs {
         }
     }
 
-    /**
-     * InformaciÃƒÂ³n bÃƒÂ¡sica del juego
-     */
     public static class GameInfo {
         private final String gameCode;
         private final String state;
@@ -83,9 +71,6 @@ public class GameDTOs {
         }
     }
 
-    /**
-     * Estado completo del juego para transferencia
-     */
     public static class GameStateDTO {
         private String gameCode;
         private String state;
@@ -111,7 +96,6 @@ public class GameDTOs {
         public long getRemainingTimeMillis() { return remainingTimeMillis; }
     }
 
-    // Añadir nuevo DTO para recolección de power-ups
     public static class PowerUpCollectRequest {
         private String playerId;
         private int x;
@@ -125,15 +109,13 @@ public class GameDTOs {
         public int getY() { return y; }
         public void setY(int y) { this.y = y; }
     }
-    /**
-     * DTO con informaciÃ³n reducida del jugador para el frontend
-     */
+
     public static class PlayerInfoDTO {
         private String id;
         private String name;
         private int x;
         private int y;
-        private String type;  // "INFECTED" o "SURVIVOR"
+        private String type; // "INFECTED" o "SURVIVOR"
         private int powerUpCount;
         private boolean staminaActive;
 
@@ -165,10 +147,6 @@ public class GameDTOs {
     }
 
 
-
-    /**
-     * ActualizaciÃ³n del estado del lobby
-     */
     public static class LobbyUpdate {
         private List<PlayerInfoDTO> players;
         private String hostPlayerId;
@@ -189,9 +167,7 @@ public class GameDTOs {
         public String getGameState() { return gameState; }
     }
 
-    /**
-     * Solicitud de cambio de estado "listo" de un jugador
-     */
+
     public static class PlayerReadyRequest {
         private String playerId;
         private boolean isReady;
@@ -213,9 +189,6 @@ public class GameDTOs {
         }
     }
 
-    /**
-     * Solicitud para iniciar el juego
-     */
     public static class StartGameRequest {
         private String hostPlayerId;
 
@@ -228,9 +201,6 @@ public class GameDTOs {
         }
     }
 
-    /**
-     * Acciones disponibles para los jugadores
-     */
     public enum PlayerAction {
         MOVE_UP,
         MOVE_DOWN,

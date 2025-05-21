@@ -4,7 +4,7 @@ import edu.eci.arsw.model.*;
 import edu.eci.arsw.model.player.Survivor;
 
 public class StaminaPowerUp extends PowerUp {
-    public static final long DEFAULT_DURATION = 10000; // 10 segundos
+    public static final long DEFAULT_DURATION = 10000;
 
     public StaminaPowerUp(int x, int y) {
         super(x, y, DEFAULT_DURATION);

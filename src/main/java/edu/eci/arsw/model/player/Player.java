@@ -12,7 +12,7 @@
         private boolean ready;
 
         public Player(String id, int x, int y, int speed, String name) {
-            this.id = id; // Usar el ID proporcionado
+            this.id = id;
             this.x = x;
             this.y = y;
             this.speed = speed;
@@ -46,7 +46,7 @@
 
         public void collectPowerUp() {
             if (this instanceof Survivor) {
-                ((Survivor) this).enableStamina(10000); // 10 segundos
+                ((Survivor) this).enableStamina(10000);
             }
         }
 
@@ -55,13 +55,11 @@
             int newX = x + (dx * speed);
             int newY = y + (dy * speed);
 
-            // Verificar límites del mapa
             if (newX < 0 || newX >= game.getMap().getWidth() ||
                     newY < 0 || newY >= game.getMap().getHeight()) {
                 return;
             }
 
-            // Verificar power-ups en todas las casillas del recorrido
             for (int i = 1; i <= speed; i++) {
                 int checkX = x + (dx * i);
                 int checkY = y + (dy * i);
@@ -70,16 +68,12 @@
                 }
             }
 
-            // Verificar si la posición final es válida
             if (canMoveTo(newX, newY, game) && game.getMap().isWalkable(newX, newY)) {
-                // Limpiar posición anterior
                 game.getMap().setCell(x, y, '.');
 
-                // Actualizar posición
                 x = newX;
                 y = newY;
 
-                // Marcar nueva posición
                 game.getMap().setCell(x, y, getSymbol());
             }
         }

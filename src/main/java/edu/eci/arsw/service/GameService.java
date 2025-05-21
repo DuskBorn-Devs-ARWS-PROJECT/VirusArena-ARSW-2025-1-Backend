@@ -13,9 +13,8 @@ import java.util.Random;
 
 @Service
 public class GameService {
-    // Constantes aÃ±adidas
-    private static final double SURVIVOR_PROBABILITY = 0.7; // 70% de probabilidad de ser Survivor por defecto
-    private static final int MAX_INITIAL_POSITION = 30; // MÃ¡xima posiciÃ³n inicial en el mapa
+    private static final double SURVIVOR_PROBABILITY = 0.7;
+    private static final int MAX_INITIAL_POSITION = 30;
 
     @Autowired
     private GameRepository gameRepository;
@@ -40,27 +39,22 @@ public class GameService {
         int x = random.nextInt(MAX_INITIAL_POSITION) + 1;
         int y = random.nextInt(MAX_INITIAL_POSITION) + 1;
 
-        // Calcular distribuciÃ³n basada en jugadores existentes
         long infectedCount = game.getPlayers().stream()
                 .filter(p -> p instanceof Infected)
                 .count();
         long totalPlayers = game.getPlayers().size();
 
-        // Determinar tipo basado en la distribuciÃ³n actual
         boolean isInfected;
 
         if (totalPlayers == 0) {
-            // Primer jugador - 20% de chance de ser infectado
             isInfected = random.nextDouble() < 0.2;
         } else {
             double currentRatio = (double) infectedCount / totalPlayers;
-            double targetRatio = 0.25; // 25% infectados mÃ¡ximo
+            double targetRatio = 0.25;
 
             if (currentRatio < targetRatio) {
-                // Necesitamos mÃ¡s infectados para alcanzar la proporciÃ³n
                 isInfected = random.nextDouble() < (targetRatio - currentRatio);
             } else {
-                // Tenemos suficientes infectados
                 isInfected = random.nextDouble() < 0.1;
             }
         }

@@ -24,7 +24,7 @@ public class Game {
     private final GameNotificationService notificationService;
 
     private long startTimeMillis;
-    private final long GAME_DURATION_LIMIT = 5 * 60 * 1000; // 5 minutos en ms
+    private final long GAME_DURATION_LIMIT = 5 * 60 * 1000;
 
     public Game(String gameCode, GameNotificationService notificationService) {
         this.gameCode = gameCode;

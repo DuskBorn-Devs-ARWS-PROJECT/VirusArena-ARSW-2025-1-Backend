@@ -41,12 +41,10 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setEmail(registerRequest.getEmail());
 
-        // Asignar ROLE_USER por defecto, el frontend actualizará a ROLE_HOST si es host
         user.setRole("ROLE_USER");
 
         userRepository.save(user);
 
-        // Create authentication token manually
         var authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
         var principal = new org.springframework.security.core.userdetails.User(
                 user.getUsername(),

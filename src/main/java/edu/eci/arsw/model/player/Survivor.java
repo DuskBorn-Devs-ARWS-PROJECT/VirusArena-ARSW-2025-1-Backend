@@ -13,8 +13,8 @@ public class Survivor extends Player {
     private long staminaEndTime;
     private int powerUpCount;
     private boolean hasPowerUp;
-    private final int originalSpeed = 1; // Velocidad normal
-    private final int boostedSpeed = 2; // Velocidad con stamina
+    private final int originalSpeed = 1;
+    private final int boostedSpeed = 2;
 
     public Survivor(String id, int x, int y, String name) {
         super(id, x, y, 1, name);
@@ -33,7 +33,6 @@ public class Survivor extends Player {
         int dx = Math.abs(newX - getX());
         int dy = Math.abs(newY - getY());
 
-        // Velocidad actual depende de si stamina está activa
         int currentSpeed = staminaActive ? 2 : 1;
 
         if (dx > currentSpeed || dy > currentSpeed) {
@@ -58,8 +57,7 @@ public class Survivor extends Player {
         try {
             if (powerUpCount > 0 && !staminaActive) {
                 powerUpCount--;
-                enableStamina(10000); // 10 segundos
-                return true;
+                enableStamina(10000);
             }
             return false;
         } finally {

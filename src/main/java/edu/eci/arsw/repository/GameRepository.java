@@ -13,7 +13,6 @@ public class GameRepository {
     private final ConcurrentMap<String, Game> games = new ConcurrentHashMap<>();
     private final GameNotificationService notificationService;
 
-    // Inyectar el servicio en el repositorio
     @Autowired
     public GameRepository(GameNotificationService notificationService) {
         this.notificationService = notificationService;
@@ -24,12 +23,11 @@ public class GameRepository {
                 gameCode == null ? generateGameCode() : gameCode.toUpperCase(),
                 code -> {
                     System.out.println("Creando nuevo juego: " + code);
-                    return new Game(code, notificationService); // Pasar el servicio al crear el juego
+                    return new Game(code, notificationService);
                 }
         );
     }
 
-    // Debug: Método para ver juegos activos
     public void printActiveGames() {
         System.out.println("=== JUEGOS ACTIVOS ===");
         games.forEach((code, game) -> {
