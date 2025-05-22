@@ -23,7 +23,7 @@ public class Game {
     private final GameNotificationService notificationService;
 
     private long startTimeMillis;
-    private static final long gameDurationLimit = TimeUnit.MINUTES.toMillis(5);
+    private static final long GAME_DURATION_LIMIT_MILLIS = TimeUnit.MINUTES.toMillis(5);
 
     public Game(String gameCode, GameNotificationService notificationService) {
         this.gameCode = gameCode;
@@ -116,7 +116,7 @@ public class Game {
         boolean allSurvivorsGone = players.values().stream()
                 .noneMatch(p -> p instanceof Survivor);
 
-        boolean timeExpired = System.currentTimeMillis() - startTimeMillis >= gameDurationLimit;
+        boolean timeExpired = System.currentTimeMillis() - startTimeMillis >= GAME_DURATION_LIMIT_MILLIS;
 
         if (allSurvivorsGone || timeExpired) {
             endGame();
@@ -147,7 +147,7 @@ public class Game {
 
     public long getRemainingTimeMillis() {
         long elapsed = System.currentTimeMillis() - startTimeMillis;
-        return Math.max(0, gameDurationLimit - elapsed);
+        return Math.max(0, GAME_DURATION_LIMIT_MILLIS - elapsed);
     }
 
     private void generatePowerUps() {
