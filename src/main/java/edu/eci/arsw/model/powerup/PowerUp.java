@@ -1,6 +1,5 @@
 package edu.eci.arsw.model.powerup;
 
-import edu.eci.arsw.model.*;
 import edu.eci.arsw.model.player.Survivor;
 
 import java.util.concurrent.atomic.AtomicBoolean;

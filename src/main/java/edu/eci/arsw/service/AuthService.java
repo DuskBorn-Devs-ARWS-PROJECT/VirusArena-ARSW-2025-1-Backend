@@ -5,15 +5,10 @@ import edu.eci.arsw.exception.AuthException;
 import edu.eci.arsw.model.User;
 import edu.eci.arsw.repository.UserRepository;
 import edu.eci.arsw.security.JwtTokenProvider;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.userdetails.UserDetailsService; // Importar UserDetailsService
-import org.springframework.security.core.userdetails.UserDetails; // Importar UserDetails
-import org.springframework.security.core.userdetails.UsernameNotFoundException; // Importar UsernameNotFoundException
 import org.springframework.security.core.authority.SimpleGrantedAuthority; // Importar SimpleGrantedAuthority
 import java.util.Collections; // Importar Collections
 

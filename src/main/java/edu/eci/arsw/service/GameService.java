@@ -6,7 +6,6 @@ import edu.eci.arsw.model.player.Infected;
 import edu.eci.arsw.model.player.Player;
 import edu.eci.arsw.model.player.Survivor;
 import edu.eci.arsw.repository.GameRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;

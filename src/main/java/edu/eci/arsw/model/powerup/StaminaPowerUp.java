@@ -1,6 +1,6 @@
 package edu.eci.arsw.model.powerup;
 
-import edu.eci.arsw.model.*;
+
 import edu.eci.arsw.model.player.Survivor;
 
 public class StaminaPowerUp extends PowerUp {

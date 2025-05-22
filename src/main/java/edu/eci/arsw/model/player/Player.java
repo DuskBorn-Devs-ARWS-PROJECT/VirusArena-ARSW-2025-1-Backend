@@ -1,7 +1,6 @@
     package edu.eci.arsw.model.player;
 
     import edu.eci.arsw.model.Game;
-    import java.util.UUID;
 
     public abstract class Player {
         private final String id;
