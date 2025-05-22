@@ -64,7 +64,7 @@ public class GameController {
         );
 
         game.addPlayer(player);
-        logger.info("Nuevo jugador añadido al juego {}", gameCode);
+        logger.info("Nuevo jugador añadido al juego");
         messagingTemplate.convertAndSend("/topic/lobby/" + gameCode, createLobbyUpdate(game));
     }
 
