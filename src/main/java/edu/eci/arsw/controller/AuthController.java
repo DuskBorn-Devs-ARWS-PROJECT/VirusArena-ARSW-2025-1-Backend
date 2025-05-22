@@ -7,7 +7,8 @@ import edu.eci.arsw.model.dto.AuthDTOs.TokenResponse;
 import edu.eci.arsw.exception.AuthException;
 import edu.eci.arsw.security.JwtTokenProvider;
 import edu.eci.arsw.service.AuthService;
-import org.apache.catalina.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -25,6 +25,7 @@ import edu.eci.arsw.repository.UserRepository;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthService authService;
@@ -63,13 +64,12 @@ public class AuthController {
             String token = authService.registerUser(registerRequest);
             return ResponseEntity.ok(new AuthDTOs.TokenResponse(token));
         } catch (AuthException e) {
-            // **CAMBIO AQUI:** Envuelve el mensaje de error en un objeto JSON
+            logger.warn("Error de autenticación durante el registro: {}", e.getMessage());
             Map<String, String> errorResponse = Collections.singletonMap("message", e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         } catch (Exception e) {
-            // **CAMBIO AQUI:** También para errores inesperados
-            System.err.println("Error durante el registro: " + e.getMessage());
-            Map<String, String> errorResponse = Collections.singletonMap("message", "Error interno del servidor al intentar registrar el usuario.");
+            logger.error("Error inesperado durante el registro", e);  // Esto registrará el stack trace completo
+            Map<String, String> errorResponse = Collections.singletonMap("message", "Error interno del servidor");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
