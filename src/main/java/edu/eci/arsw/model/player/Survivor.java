@@ -13,8 +13,8 @@ public class Survivor extends Player {
     private long staminaEndTime;
     private int powerUpCount;
     private boolean hasPowerUp;
-    private static final int originalSpeed = 1;
-    private static final int boostedSpeed = 2;
+    private static final int ORIGINAL_SPEED = 1;
+    private static final int BOOSTED_SPEED = 2;
 
     public Survivor(String id, int x, int y, String name) {
         super(id, x, y, 1, name);
@@ -71,7 +71,7 @@ public class Survivor extends Player {
         try {
             this.staminaActive = true;
             this.staminaEndTime = System.currentTimeMillis() + durationMillis;
-            setSpeed(boostedSpeed);
+            setSpeed(BOOSTED_SPEED);
             new Thread(this::checkStaminaDuration).start();
         } finally {
             collectionLock.unlock();
@@ -94,7 +94,7 @@ public class Survivor extends Player {
         collectionLock.lock();
         try {
             this.staminaActive = false;
-            setSpeed(originalSpeed);
+            setSpeed(ORIGINAL_SPEED);
         } finally {
             collectionLock.unlock();
         }

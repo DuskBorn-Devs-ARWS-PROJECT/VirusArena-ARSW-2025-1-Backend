@@ -126,10 +126,9 @@ public class GameDTOs {
             this.y = player.getY();
             this.type = player instanceof Infected ? "INFECTED" : "SURVIVOR";
 
-            if (player instanceof Survivor) {
-                Survivor s = (Survivor) player;
-                this.powerUpCount = s.getPowerUpCount();
-                this.staminaActive = s.hasStaminaActive();
+            if (player instanceof Survivor survivor) {
+                this.powerUpCount = survivor.getPowerUpCount();
+                this.staminaActive = survivor.hasStaminaActive();
             } else {
                 this.powerUpCount = 0;
                 this.staminaActive = false;

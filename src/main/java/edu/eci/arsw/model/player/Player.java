@@ -45,8 +45,8 @@
         }
 
         public void collectPowerUp() {
-            if (this instanceof Survivor) {
-                ((Survivor) this).enableStamina(10000);
+            if (this instanceof Survivor survivor) {
+                survivor.enableStamina(10000);
             }
         }
 
