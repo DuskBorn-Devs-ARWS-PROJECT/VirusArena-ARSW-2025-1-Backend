@@ -58,7 +58,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<Object> register(@RequestBody RegisterRequest registerRequest) {
         try {
             String token = authService.registerUser(registerRequest);
             return ResponseEntity.ok(new AuthDTOs.TokenResponse(token));
@@ -75,7 +75,7 @@ public class AuthController {
     }
 
     @PostMapping("/update-role")
-    public ResponseEntity<?> updateUserRole(@RequestBody Map<String, String> request) {
+    public ResponseEntity<Object> updateUserRole(@RequestBody Map<String, String> request) {
         try {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             Optional<edu.eci.arsw.model.User> userOpt = userRepository.findByUsername(username);
