@@ -65,6 +65,14 @@ The system is hosted on AWS with a decoupled frontend and backend. It uses load 
   <img src="src/main/resources/images/ArquitecturaAWS.jpg" alt="VirusArena AWS Architecture">
 </p>
 
+## 📄 Project Diagrams
+
+[![Word Icon](https://img.icons8.com/color/48/000000/ms-word.png) **Click here to view the project diagrams**](./ARSW_PROYECT_DIAGRAMS.docx)
+
+📝 File: `ARSW_PROYECT_DIAGRAMS.docx`  
+
+---
+
 ### Frontend
 - Hosted on Amazon S3
 - Uses a custom authentication service that:
