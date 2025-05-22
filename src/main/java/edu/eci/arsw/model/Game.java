@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Game {
     private final String gameCode;
@@ -22,7 +23,7 @@ public class Game {
     private final GameNotificationService notificationService;
 
     private long startTimeMillis;
-    private final long GAME_DURATION_LIMIT = 5 * 60 * 1000L;
+    private static final long gameDurationLimit = TimeUnit.MINUTES.toMillis(5);
 
     public Game(String gameCode, GameNotificationService notificationService) {
         this.gameCode = gameCode;
@@ -115,7 +116,7 @@ public class Game {
         boolean allSurvivorsGone = players.values().stream()
                 .noneMatch(p -> p instanceof Survivor);
 
-        boolean timeExpired = System.currentTimeMillis() - startTimeMillis >= GAME_DURATION_LIMIT;
+        boolean timeExpired = System.currentTimeMillis() - startTimeMillis >= gameDurationLimit;
 
         if (allSurvivorsGone || timeExpired) {
             endGame();
@@ -146,7 +147,7 @@ public class Game {
 
     public long getRemainingTimeMillis() {
         long elapsed = System.currentTimeMillis() - startTimeMillis;
-        return Math.max(0, GAME_DURATION_LIMIT - elapsed);
+        return Math.max(0, gameDurationLimit - elapsed);
     }
 
     private void generatePowerUps() {
