@@ -12,7 +12,6 @@ import java.util.Random;
 
 @Service
 public class GameService {
-    private static final double SURVIVOR_PROBABILITY = 0.7;
     private static final int MAX_INITIAL_POSITION = 30;
 
     private GameRepository gameRepository;

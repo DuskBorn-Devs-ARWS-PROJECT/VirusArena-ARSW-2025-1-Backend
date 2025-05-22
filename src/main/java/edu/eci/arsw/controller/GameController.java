@@ -77,8 +77,8 @@ public class GameController {
         if (game == null || game.getState() != Game.GameState.IN_PROGRESS) return;
 
         game.getPlayerById(actionRequest.getPlayerId()).ifPresent(player -> {
-            if (actionRequest.getAction() == PlayerAction.USE_POWERUP && player instanceof Survivor) {
-                ((Survivor) player).usePowerUp();
+            if (actionRequest.getAction() == PlayerAction.USE_POWERUP && player instanceof Survivor survivor) {
+                survivor.usePowerUp();
             } else {
                 game.processPlayerAction(actionRequest.getPlayerId(), actionRequest.getAction());
             }
@@ -173,7 +173,10 @@ public class GameController {
         int initialY = random.nextInt(30) + 1;
 
         List<Player> players = new ArrayList<>(game.getPlayers());
-        long infectedCount = players.stream().filter(p -> p instanceof Infected).count();
+        long infectedCount = game.getPlayers().stream()
+                .filter(Infected.class::isInstance)
+                .count();
+
         int totalPlayers = players.size();
 
         boolean shouldBeInfected;

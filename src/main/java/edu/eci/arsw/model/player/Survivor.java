@@ -13,8 +13,8 @@ public class Survivor extends Player {
     private long staminaEndTime;
     private int powerUpCount;
     private boolean hasPowerUp;
-    private final int originalSpeed = 1;
-    private final int boostedSpeed = 2;
+    private static final int originalSpeed = 1;
+    private static final int boostedSpeed = 2;
 
     public Survivor(String id, int x, int y, String name) {
         super(id, x, y, 1, name);

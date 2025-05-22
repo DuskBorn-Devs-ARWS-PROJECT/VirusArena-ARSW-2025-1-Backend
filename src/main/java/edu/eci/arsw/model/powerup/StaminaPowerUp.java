@@ -1,7 +1,6 @@
 package edu.eci.arsw.model.powerup;
 
 
-import edu.eci.arsw.model.Game;
 import edu.eci.arsw.model.player.Survivor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
