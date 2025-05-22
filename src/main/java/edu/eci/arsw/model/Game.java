@@ -12,8 +12,12 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Game {
+    private static final Logger logger = LoggerFactory.getLogger(Game.class);
+
     private final String gameCode;
     private final Map map;
     private final ConcurrentHashMap<String, Player> players;
@@ -79,8 +83,8 @@ public class Game {
                     player.move(1, 0, this);
                     break;
                 case USE_POWERUP:
-                    if (player instanceof Survivor) {
-                        ((Survivor)player).usePowerUp();
+                    if (player instanceof Survivor survivor) {
+                        survivor.usePowerUp();
                     }
                     break;
             }
@@ -95,26 +99,27 @@ public class Game {
 
     private void checkInfection() {
         players.values().stream()
-                .filter(p -> p instanceof Infected)
+                .filter(Infected.class::isInstance)
+                .map(Infected.class::cast)
                 .forEach(infected -> {
                     players.values().stream()
-                            .filter(p -> p instanceof Survivor)
-                            .map(p -> (Survivor)p)
+                            .filter(Survivor.class::isInstance)
+                            .map(Survivor.class::cast)
                             .filter(s -> isAdjacent(infected, s))
-                            .forEach(s -> ((Infected)infected).infect(s, this));
+                            .forEach(s -> infected.infect(s, this));
                 });
     }
 
     private void checkEscape(Player player) {
         if (player instanceof Survivor && player.getX() == 12 && player.getY() == 32) {
-            System.out.println(player.getName() + " ha escapado!");
+            logger.info("Un jugador ha escapado del juego");
             removePlayer(player.getId());
         }
     }
 
     private void checkGameConditions() {
         boolean allSurvivorsGone = players.values().stream()
-                .noneMatch(p -> p instanceof Survivor);
+                .noneMatch(Survivor.class::isInstance);
 
         boolean timeExpired = System.currentTimeMillis() - startTimeMillis >= GAME_DURATION_LIMIT_MILLIS;
 
@@ -173,9 +178,9 @@ public class Game {
     public void collectPowerUp(int x, int y, String playerId) {
         if (map.getCell(x, y) == 'P') {
             getPlayerById(playerId).ifPresent(player -> {
-                if (player instanceof Survivor) {
+                if (player instanceof Survivor survivor) {
                     map.setCell(x, y, '.');
-                    ((Survivor) player).collectPowerUp();
+                    survivor.collectPowerUp();
                     notificationService.notifyGameUpdate(this);
                 }
             });
@@ -191,8 +196,8 @@ public class Game {
             boolean positionFound = false;
             int attempts = 0;
             while (!positionFound && attempts < 100) {
-                int x = (int)(Math.random() * (map.getWidth() - 2)) + 1;
-                int y = (int)(Math.random() * (map.getHeight() - 2)) + 1;
+                int x = random.nextInt(map.getWidth() - 2) + 1;
+                int y = random.nextInt(map.getHeight() - 2) + 1;
 
                 if (map.isWalkable(x, y) && !isPlayerAtPosition(x, y)) {
                     player.setPosition(x, y);
