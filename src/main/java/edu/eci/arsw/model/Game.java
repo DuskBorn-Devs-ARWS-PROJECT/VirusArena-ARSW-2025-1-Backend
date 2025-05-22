@@ -10,8 +10,6 @@ import edu.eci.arsw.service.GameNotificationService;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Game {
@@ -24,7 +22,7 @@ public class Game {
     private final GameNotificationService notificationService;
 
     private long startTimeMillis;
-    private final long GAME_DURATION_LIMIT = 5 * 60 * 1000;
+    private final long GAME_DURATION_LIMIT = 5 * 60 * 1000L;
 
     public Game(String gameCode, GameNotificationService notificationService) {
         this.gameCode = gameCode;

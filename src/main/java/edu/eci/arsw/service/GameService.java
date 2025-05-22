@@ -16,10 +16,7 @@ public class GameService {
     private static final double SURVIVOR_PROBABILITY = 0.7;
     private static final int MAX_INITIAL_POSITION = 30;
 
-    @Autowired
     private GameRepository gameRepository;
-
-    @Autowired
     private GameNotificationService notificationService;
 
     private final Random random = new Random();

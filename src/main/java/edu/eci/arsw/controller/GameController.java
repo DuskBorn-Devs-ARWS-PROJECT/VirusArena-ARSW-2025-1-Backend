@@ -38,9 +38,9 @@ public class GameController {
             @Payload PlayerJoinRequest joinRequest,
             @DestinationVariable String gameCode) {
 
-        logger.info("Nuevo jugador intentando unirse a la partida: {}", gameCode);
+        logger.info("Nueva solicitud de unión a partida recibida");
         Game game = gameRepository.findOrCreateGame(gameCode);
-        logger.info("Juego encontrado/creado, jugadores actuales: {}", game.getPlayers().size());
+        logger.info("Jugador añadido exitosamente");
         if (game.getPlayerById(joinRequest.getPlayerId()).isPresent()) {
             logger.warn("Intento de unión duplicada detectada");
             return;
