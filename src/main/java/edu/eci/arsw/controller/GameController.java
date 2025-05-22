@@ -38,13 +38,12 @@ public class GameController {
             @Payload PlayerJoinRequest joinRequest,
             @DestinationVariable String gameCode) {
 
-        logger.info("Solicitud de unión - GameCode: {}, PlayerId: {}, Name: {}",
-                gameCode, joinRequest.getPlayerId(), joinRequest.getPlayerName());
+        logger.info("Nuevo jugador intentando unirse a la partida: {}", gameCode);
         Game game = gameRepository.findOrCreateGame(gameCode);
-        logger.info("Juego encontrado/creado: {}, Jugadores actuales: {}",
-                game.getGameCode(), game.getPlayers().size());
+        logger.info("Juego encontrado/creado, jugadores actuales: {}", game.getPlayers().size());
         if (game.getPlayerById(joinRequest.getPlayerId()).isPresent()) {
-            logger.warn("Jugador ya existe: {}", joinRequest.getPlayerId());            return;
+            logger.warn("Intento de unión duplicada detectada");
+            return;
         }
 
         if (game.getPlayers().isEmpty()) {
@@ -54,7 +53,8 @@ public class GameController {
                     .ifPresent(user -> {
                         user.setRole("ROLE_HOST");
                         userRepository.save(user);
-                        logger.info("Usuario {} actualizado a ROLE_HOST", user.getUsername());                    });
+                        logger.info("Se asignó rol de host a un usuario");
+                    });
         }
 
         Player player = createPlayerWithDistribution(
@@ -64,8 +64,7 @@ public class GameController {
         );
 
         game.addPlayer(player);
-        logger.info("Jugador añadido - ID: {}, Posición: ({},{})",
-                player.getId(), player.getX(), player.getY());
+        logger.info("Nuevo jugador añadido al juego {}", gameCode);
         messagingTemplate.convertAndSend("/topic/lobby/" + gameCode, createLobbyUpdate(game));
     }
 
@@ -103,15 +102,13 @@ public class GameController {
             @Payload PlayerReadyRequest readyRequest,
             @DestinationVariable String gameCode) {
 
-        logger.debug("Ready recibido de: {}", readyRequest.getPlayerId());
-
+        logger.debug("Actualización de estado 'ready' recibida");
         Game game = gameRepository.findGameByCode(gameCode);
         if (game != null) {
             game.getPlayerById(readyRequest.getPlayerId())
                     .ifPresent(player -> {
                         player.setReady(readyRequest.isReady());
-                        logger.debug("Estado ready actualizado: {} = {}",
-                                player.getName(), player.isReady());                    });
+                        logger.debug("Estado 'ready' actualizado");                    });
             messagingTemplate.convertAndSend("/topic/lobby/" + gameCode, createLobbyUpdate(game));
         }
     }
@@ -121,18 +118,19 @@ public class GameController {
             @Payload StartGameRequest startRequest,
             @DestinationVariable String gameCode) {
 
-        logger.info("Solicitud de inicio recibida de: {}", startRequest.getHostPlayerId());
+        logger.info("Solicitud de inicio recibida");
         Game game = gameRepository.findGameByCode(gameCode);
         if (game == null) {
-            logger.error("Juego no encontrado: {}", gameCode);            return;
+            logger.error("Intento de iniciar juego no existente");
+            return;
         }
 
         if (!game.getHostPlayerId().equals(startRequest.getHostPlayerId())) {
-            logger.warn("El solicitante no es el host");            return;
+            logger.warn("Intento de inicio por no-host");           return;
         }
 
         if (!game.canStart()) {
-            logger.warn("No se cumplen las condiciones para iniciar el juego {}", gameCode);
+            logger.warn("Intento de inicio fallido: condiciones no cumplidas");
             messagingTemplate.convertAndSendToUser(
                     startRequest.getHostPlayerId(),
                     "/queue/errors",
@@ -152,7 +150,8 @@ public class GameController {
                         game.getRemainingTimeMillis()
                 ));
 
-        logger.info("Partida iniciada: {}", gameCode);    }
+        logger.info("Partida iniciada exitosamente");
+    }
 
     @MessageMapping("/game/{gameCode}/collect")
     public void handleCollectPowerUp(
