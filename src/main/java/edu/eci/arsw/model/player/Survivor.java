@@ -3,6 +3,8 @@ package edu.eci.arsw.model.player;
 import edu.eci.arsw.model.Game;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Objects;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -21,6 +23,22 @@ public class Survivor extends Player {
         this.staminaActive = false;
         this.powerUpCount = 0;
         this.hasPowerUp = false;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Survivor survivor = (Survivor) o;
+        return staminaActive == survivor.staminaActive &&
+                staminaEndTime == survivor.staminaEndTime &&
+                powerUpCount == survivor.powerUpCount &&
+                hasPowerUp == survivor.hasPowerUp;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), staminaActive, staminaEndTime, powerUpCount, hasPowerUp);
     }
 
     @Override

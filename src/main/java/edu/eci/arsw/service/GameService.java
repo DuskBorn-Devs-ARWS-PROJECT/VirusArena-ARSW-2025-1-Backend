@@ -35,7 +35,7 @@ public class GameService {
         int y = random.nextInt(MAX_INITIAL_POSITION) + 1;
 
         long infectedCount = game.getPlayers().stream()
-                .filter(p -> p instanceof Infected)
+                .filter(Infected.class::isInstance)
                 .count();
         long totalPlayers = game.getPlayers().size();
 

@@ -101,13 +101,11 @@ public class Game {
         players.values().stream()
                 .filter(Infected.class::isInstance)
                 .map(Infected.class::cast)
-                .forEach(infected -> {
-                    players.values().stream()
-                            .filter(Survivor.class::isInstance)
-                            .map(Survivor.class::cast)
-                            .filter(s -> isAdjacent(infected, s))
-                            .forEach(s -> infected.infect(s, this));
-                });
+                .forEach(infected -> players.values().stream()
+                        .filter(Survivor.class::isInstance)
+                        .map(Survivor.class::cast)
+                        .filter(s -> isAdjacent(infected, s))
+                        .forEach(s -> infected.infect(s, this)));
     }
 
     private void checkEscape(Player player) {
@@ -214,9 +212,9 @@ public class Game {
     }
 
     private void updateMapWithPlayers() {
-        players.values().forEach(player -> {
-            map.setCell(player.getX(), player.getY(), player.getSymbol());
-        });
+        players.values().forEach(player ->
+                map.setCell(player.getX(), player.getY(), player.getSymbol())
+        );
     }
 
     public void endGame() {

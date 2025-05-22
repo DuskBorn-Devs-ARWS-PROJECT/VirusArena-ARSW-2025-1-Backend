@@ -1,6 +1,8 @@
 package edu.eci.arsw.repository;
 
 import edu.eci.arsw.model.Game;
+
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class GameRepository {
+    private static final Random RANDOM = new Random();
     private final ConcurrentMap<String, Game> games = new ConcurrentHashMap<>();
     private final GameNotificationService notificationService;
     private static final Logger logger = LoggerFactory.getLogger(GameRepository.class);
@@ -36,10 +39,9 @@ public class GameRepository {
     public void printActiveGames() {
         if (logger.isDebugEnabled()) {
             logger.debug("=== JUEGOS ACTIVOS ===");
-            games.forEach((code, game) -> {
-                logger.debug("Game: {}, Jugadores: {}",
-                        code, game.getPlayers().size());
-            });
+            games.forEach((code, game) ->
+                    logger.debug("Game: {}, Jugadores: {}", code, game.getPlayers().size())
+            );
         }
     }
 
@@ -61,6 +63,6 @@ public class GameRepository {
     }
 
     private String generateGameCode() {
-        return "GAME" + (int)(Math.random() * 10000);
+        return "GAME" + (1000 + RANDOM.nextInt(9000)); // Genera códigos de 4 dígitos
     }
 }
