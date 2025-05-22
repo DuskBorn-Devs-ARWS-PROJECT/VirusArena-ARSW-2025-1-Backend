@@ -1,6 +1,6 @@
 package edu.eci.arsw.controller;
 
-import edu.eci.arsw.model.dto.GameDTOs;
+
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -11,25 +11,24 @@ import edu.eci.arsw.model.player.*;
 import edu.eci.arsw.model.dto.GameDTOs.*;
 import edu.eci.arsw.repository.GameRepository;
 import edu.eci.arsw.repository.UserRepository;
-import edu.eci.arsw.service.GameNotificationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Controller
 public class GameController {
+    private static final Logger logger = LoggerFactory.getLogger(GameController.class);
     private final GameRepository gameRepository;
-    private final GameNotificationService notificationService;
     private final SimpMessagingTemplate messagingTemplate;
     private final UserRepository userRepository;
     private final Random random = new Random();
 
     public GameController(GameRepository gameRepository,
-                          GameNotificationService notificationService,
                           SimpMessagingTemplate messagingTemplate,
                           UserRepository userRepository) {
         this.gameRepository = gameRepository;
-        this.notificationService = notificationService;
         this.messagingTemplate = messagingTemplate;
         this.userRepository = userRepository;
     }
@@ -39,17 +38,13 @@ public class GameController {
             @Payload PlayerJoinRequest joinRequest,
             @DestinationVariable String gameCode) {
 
-        System.out.println("Solicitud de unión - GameCode: " + gameCode +
-                ", PlayerId: " + joinRequest.getPlayerId() +
-                ", Name: " + joinRequest.getPlayerName());
-
+        logger.info("Solicitud de unión - GameCode: {}, PlayerId: {}, Name: {}",
+                gameCode, joinRequest.getPlayerId(), joinRequest.getPlayerName());
         Game game = gameRepository.findOrCreateGame(gameCode);
-        System.out.println("Juego encontrado/creado: " + game.getGameCode() +
-                ", Jugadores actuales: " + game.getPlayers().size());
-
+        logger.info("Juego encontrado/creado: {}, Jugadores actuales: {}",
+                game.getGameCode(), game.getPlayers().size());
         if (game.getPlayerById(joinRequest.getPlayerId()).isPresent()) {
-            System.out.println("⚠️ Jugador ya existe: " + joinRequest.getPlayerId());
-            return;
+            logger.warn("Jugador ya existe: {}", joinRequest.getPlayerId());            return;
         }
 
         if (game.getPlayers().isEmpty()) {
@@ -59,8 +54,7 @@ public class GameController {
                     .ifPresent(user -> {
                         user.setRole("ROLE_HOST");
                         userRepository.save(user);
-                        System.out.println("Usuario " + user.getUsername() + " actualizado a ROLE_HOST");
-                    });
+                        logger.info("Usuario {} actualizado a ROLE_HOST", user.getUsername());                    });
         }
 
         Player player = createPlayerWithDistribution(
@@ -70,11 +64,8 @@ public class GameController {
         );
 
         game.addPlayer(player);
-        System.out.println("✅ Jugador añadido - ID: " + player.getId() +
-                ", Posición: (" + player.getX() + "," + player.getY() + ")");
-
-        game.getPlayers().forEach(p -> System.out.println("- " + p.getId()));
-
+        logger.info("Jugador añadido - ID: {}, Posición: ({},{})",
+                player.getId(), player.getX(), player.getY());
         messagingTemplate.convertAndSend("/topic/lobby/" + gameCode, createLobbyUpdate(game));
     }
 
@@ -112,15 +103,15 @@ public class GameController {
             @Payload PlayerReadyRequest readyRequest,
             @DestinationVariable String gameCode) {
 
-        System.out.println("[Controller] Ready recibido de: " + readyRequest.getPlayerId());
+        logger.debug("Ready recibido de: {}", readyRequest.getPlayerId());
 
         Game game = gameRepository.findGameByCode(gameCode);
         if (game != null) {
             game.getPlayerById(readyRequest.getPlayerId())
                     .ifPresent(player -> {
                         player.setReady(readyRequest.isReady());
-                        System.out.println("[Controller] Estado ready actualizado: " + player.getName() + " = " + player.isReady());
-                    });
+                        logger.debug("Estado ready actualizado: {} = {}",
+                                player.getName(), player.isReady());                    });
             messagingTemplate.convertAndSend("/topic/lobby/" + gameCode, createLobbyUpdate(game));
         }
     }
@@ -130,21 +121,18 @@ public class GameController {
             @Payload StartGameRequest startRequest,
             @DestinationVariable String gameCode) {
 
-        System.out.println("[Controller] Solicitud de inicio recibida de: " + startRequest.getHostPlayerId());
-
+        logger.info("Solicitud de inicio recibida de: {}", startRequest.getHostPlayerId());
         Game game = gameRepository.findGameByCode(gameCode);
         if (game == null) {
-            System.out.println("[Controller] Juego no encontrado: " + gameCode);
-            return;
+            logger.error("Juego no encontrado: {}", gameCode);            return;
         }
 
         if (!game.getHostPlayerId().equals(startRequest.getHostPlayerId())) {
-            System.out.println("[Controller] El solicitante no es el host");
-            return;
+            logger.warn("El solicitante no es el host");            return;
         }
 
         if (!game.canStart()) {
-            System.out.println("[Controller] No se cumplen las condiciones para iniciar");
+            logger.warn("No se cumplen las condiciones para iniciar el juego {}", gameCode);
             messagingTemplate.convertAndSendToUser(
                     startRequest.getHostPlayerId(),
                     "/queue/errors",
@@ -164,16 +152,15 @@ public class GameController {
                         game.getRemainingTimeMillis()
                 ));
 
-        System.out.println("[Controller] Partida iniciada: " + gameCode);
-    }
+        logger.info("Partida iniciada: {}", gameCode);    }
 
     @MessageMapping("/game/{gameCode}/collect")
     public void handleCollectPowerUp(
             @Payload PowerUpCollectRequest collectRequest,
             @DestinationVariable String gameCode) {
 
-        System.out.println("Recolección de power-up en: " +
-                collectRequest.getX() + "," + collectRequest.getY());
+        logger.debug("Recolección de power-up en: {},{}",
+                collectRequest.getX(), collectRequest.getY());
 
         Game game = gameRepository.findGameByCode(gameCode);
         if (game != null) {
