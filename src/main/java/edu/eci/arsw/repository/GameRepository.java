@@ -5,13 +5,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import edu.eci.arsw.service.GameNotificationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 
 @Repository
 public class GameRepository {
     private final ConcurrentMap<String, Game> games = new ConcurrentHashMap<>();
     private final GameNotificationService notificationService;
+    private static final Logger logger = LoggerFactory.getLogger(GameRepository.class);
+
 
     @Autowired
     public GameRepository(GameNotificationService notificationService) {
@@ -22,18 +27,20 @@ public class GameRepository {
         return games.computeIfAbsent(
                 gameCode == null ? generateGameCode() : gameCode.toUpperCase(),
                 code -> {
-                    System.out.println("Creando nuevo juego: " + code);
+                    logger.info("Creando nuevo juego: {}", code);
                     return new Game(code, notificationService);
                 }
         );
     }
 
     public void printActiveGames() {
-        System.out.println("=== JUEGOS ACTIVOS ===");
-        games.forEach((code, game) -> {
-            System.out.println("Game: " + code +
-                    ", Jugadores: " + game.getPlayers().size());
-        });
+        if (logger.isDebugEnabled()) {
+            logger.debug("=== JUEGOS ACTIVOS ===");
+            games.forEach((code, game) -> {
+                logger.debug("Game: {}, Jugadores: {}",
+                        code, game.getPlayers().size());
+            });
+        }
     }
 
 

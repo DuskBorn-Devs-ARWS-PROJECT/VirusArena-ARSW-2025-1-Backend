@@ -123,7 +123,7 @@ public class Map {
                     }
                     mapString.append("\n");
                 }
-                logger.debug("Mapa actual:\n{}", mapString.toString());
+                logger.debug("Mapa actual:\n{}", mapString);
             }
         } finally {
             lock.unlock();

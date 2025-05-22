@@ -10,7 +10,7 @@ public abstract class PowerUp {
     protected final AtomicBoolean beingCollected;
     protected final long effectDuration;
 
-    public PowerUp(int x, int y, long effectDuration) {
+    protected PowerUp(int x, int y, long effectDuration) {
         this.x = x;
         this.y = y;
         this.beingCollected = new AtomicBoolean(false);

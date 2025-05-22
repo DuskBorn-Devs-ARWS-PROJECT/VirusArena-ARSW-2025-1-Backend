@@ -1,6 +1,8 @@
     package edu.eci.arsw.model.player;
 
     import edu.eci.arsw.model.Game;
+    import org.slf4j.Logger;
+    import org.slf4j.LoggerFactory;
 
     public abstract class Player {
         private final String id;
@@ -9,8 +11,9 @@
         private int speed;
         private final String name;
         private boolean ready;
+        private static final Logger logger = LoggerFactory.getLogger(Player.class);
 
-        public Player(String id, int x, int y, int speed, String name) {
+        protected Player(String id, int x, int y, int speed, String name) {
             this.id = id;
             this.x = x;
             this.y = y;
@@ -50,7 +53,7 @@
         }
 
         public void move(int dx, int dy, Game game) {
-            int speed = getSpeed();
+            int currentSpeed = getSpeed();
             int newX = x + (dx * speed);
             int newY = y + (dy * speed);
 

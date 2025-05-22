@@ -1,13 +1,15 @@
 package edu.eci.arsw.model.player;
 
 import edu.eci.arsw.model.Game;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Infected extends Player {
     // Constructor actualizado
     public Infected(String id, int x, int y, String name) {
         super(id, x, y, 1, name);
     }
-
+    private static final Logger logger = LoggerFactory.getLogger(Infected.class);
     @Override
     public char getSymbol() {
         return 'I';
@@ -77,7 +79,7 @@ public class Infected extends Player {
         int dy = Math.abs(getY() - survivor.getY());
 
         if (dx <= 1 && dy <= 1) {
-            System.out.println(getName() + " ha infectado a " + survivor.getName());
+            logger.info("{} ha infectado a {}", getName(), survivor.getName());
             game.removePlayer(survivor.getId());
             game.addPlayer(new Infected(
                     survivor.getId(),

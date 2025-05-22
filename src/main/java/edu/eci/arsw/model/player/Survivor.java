@@ -42,6 +42,7 @@ public class Survivor extends Player {
         return isValidMove(newX, newY, game);
     }
 
+    @Override
     public void collectPowerUp() {
         collectionLock.lock();
         try {

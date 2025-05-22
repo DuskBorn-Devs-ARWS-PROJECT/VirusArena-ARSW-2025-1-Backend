@@ -58,13 +58,7 @@ public class GameService {
         return createPlayer(joinRequest, x, y, !isInfected);
     }
 
-    private Player createRandomPlayer(GameDTOs.PlayerJoinRequest joinRequest) {
-        int x = random.nextInt(MAX_INITIAL_POSITION);
-        int y = random.nextInt(MAX_INITIAL_POSITION);
-        boolean isSurvivor = random.nextDouble() < SURVIVOR_PROBABILITY;
 
-        return createPlayer(joinRequest, x, y, isSurvivor);
-    }
 
     public Player createPlayer(GameDTOs.PlayerJoinRequest joinRequest, int x, int y, boolean isSurvivor) {
         validateJoinRequest(joinRequest);
