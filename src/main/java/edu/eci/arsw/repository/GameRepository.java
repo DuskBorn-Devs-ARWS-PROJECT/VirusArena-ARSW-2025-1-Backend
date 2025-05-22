@@ -2,7 +2,7 @@ package edu.eci.arsw.repository;
 
 import edu.eci.arsw.model.Game;
 
-import java.util.Random;
+import java.security.SecureRandom;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -12,14 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
 public class GameRepository {
-    private static final Random RANDOM = new Random();
+    // Usamos SecureRandom por razones de seguridad y para evitar advertencias de análisis estático
+    private static final SecureRandom RANDOM = new SecureRandom();
+
     private final ConcurrentMap<String, Game> games = new ConcurrentHashMap<>();
     private final GameNotificationService notificationService;
     private static final Logger logger = LoggerFactory.getLogger(GameRepository.class);
-
 
     @Autowired
     public GameRepository(GameNotificationService notificationService) {
@@ -44,7 +44,6 @@ public class GameRepository {
             );
         }
     }
-
 
     public Game findGameByCode(String gameCode) {
         return games.get(gameCode);
