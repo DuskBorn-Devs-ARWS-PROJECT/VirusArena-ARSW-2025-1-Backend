@@ -5,6 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 public class AuthDTOs {
+    // Constructor privado para evitar instanciación
+    private AuthDTOs() {
+        throw new UnsupportedOperationException("Esta es una clase de utilidad y no puede ser instanciada");
+    }
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

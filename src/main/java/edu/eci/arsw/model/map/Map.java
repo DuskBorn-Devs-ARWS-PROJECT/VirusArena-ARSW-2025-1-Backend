@@ -1,11 +1,14 @@
 package edu.eci.arsw.model.map;
 
 import edu.eci.arsw.model.player.Player;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Map {
+    private static final Logger logger = LoggerFactory.getLogger(Map.class);
     private int width;
     private int height;
     private char[][] grid;
@@ -80,8 +83,7 @@ public class Map {
     public boolean isWalkable(int x, int y) {
         lock.lock();
         try {
-            System.out.println("Verificando posición X:" + x + " Y:" + y + " - Valor: " + grid[y][x]);
-            return x >= 0 && x < width && y >= 0 && y < height && grid[y][x] == '.';
+            logger.debug("Verificando posición X:{} Y:{} - Valor: {}", x, y, grid[y][x]);            return x >= 0 && x < width && y >= 0 && y < height && grid[y][x] == '.';
         } finally {
             lock.unlock();
         }
@@ -90,8 +92,7 @@ public class Map {
     public void setCell(int x, int y, char value) {
         lock.lock();
         try {
-            System.out.println("Actualizando celda X:" + x + " Y:" + y + " a " + value); // Debug 8
-            if (x >= 0 && x < width && y >= 0 && y < height) {
+            logger.debug("Actualizando celda X:{} Y:{} a {}", x, y, value);            if (x >= 0 && x < width && y >= 0 && y < height) {
                 grid[y][x] = value;
             }
         } finally {
@@ -114,13 +115,16 @@ public class Map {
     public void printMap() {
         lock.lock();
         try {
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    System.out.print(grid[i][j] + " ");
+            if (logger.isDebugEnabled()) {
+                StringBuilder mapString = new StringBuilder("\n");
+                for (int i = 0; i < height; i++) {
+                    for (int j = 0; j < width; j++) {
+                        mapString.append(grid[i][j]).append(" ");
+                    }
+                    mapString.append("\n");
                 }
-                System.out.println();
+                logger.debug("Mapa actual:\n{}", mapString.toString());
             }
-            System.out.println();
         } finally {
             lock.unlock();
         }

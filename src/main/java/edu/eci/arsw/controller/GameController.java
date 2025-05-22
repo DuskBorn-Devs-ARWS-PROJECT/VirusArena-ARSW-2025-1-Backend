@@ -200,7 +200,7 @@ public class GameController {
 
     private LobbyUpdate createLobbyUpdate(Game game) {
         List<Player> playerList = new ArrayList<>(game.getPlayers());
-        System.out.println("[DEBUG] Host ID: " + game.getHostPlayerId());
+        logger.debug("Host ID: {}", game.getHostPlayerId());
         return new LobbyUpdate(playerList, game.getHostPlayerId(), game.getState().toString());
     }
 }
